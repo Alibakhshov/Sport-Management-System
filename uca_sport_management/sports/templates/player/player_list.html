@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player List</title>
+</head>
+<body>
+    <h1>Player List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Last name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+                <tr>
+                    <td>{{ player.first_name }}</td>
+                    <td>{{ player.last_name }}</td>
+                    <td>{{ player.age }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No players available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
