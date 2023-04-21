@@ -8,6 +8,8 @@ To install the project you need to have installed the following programs:
 - [python](https://www.python.org/downloads/)
 - [pip](https://pip.pypa.io/en/stable/installing/)
 - [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html)
+- [django](https://docs.djangoproject.com/en/3.1/topics/install/)
+
 
 Once you have installed the programs, you need to clone the repository and create a virtual environment. To do that, you need to run the following commands:
 ```bash
