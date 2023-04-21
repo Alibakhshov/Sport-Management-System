@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Team List</title>
+</head>
+<body>
+    <h1>Student Team List</h1>
+    <ul>
+        {% for student_team in student_teams %}
+            <li>{{ student_team.student.first_name }} {{ student_team.student.last_name }} - Team: {{ student_team.team.team_name }} - Position: {{ student_team.position }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Competition Team List</title>
+</head>
+<body>
+    <h1>Competition Team List</h1>
+    <ul>
+        {% for competition_team in competition_teams %}
+            <li>Competition: {{ competition_team.competition.competition_name }} - Team: {{ competition_team.team.team_name }} - Position: {{ competition_team.position }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

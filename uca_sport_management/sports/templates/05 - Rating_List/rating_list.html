@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rating List</title>
+</head>
+<body>
+    <h1>Rating List</h1>
+    <ul>
+        {% for rating in ratings %}
+            <li>{{ rating.student.first_name }} {{ rating.student.last_name }} - Team: {{ rating.team.team_name }} - Rating: {{ rating.rating }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

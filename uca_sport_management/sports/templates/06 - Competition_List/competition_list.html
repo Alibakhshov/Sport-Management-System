@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Competition List</title>
+</head>
+<body>
+    <h1>Competition List</h1>
+    <ul>
+        {% for competition in competitions %}
+            <li>{{ competition.competition_name }} - Sport: {{ competition.sport.sport_name }} - Start Date: {{ competition.start_date }} - End Date: {{ competition.end_date }} - Location: {{ competition.location }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
