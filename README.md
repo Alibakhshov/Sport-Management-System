@@ -1,37 +1,64 @@
-# University of Central Asia Sport Management System
-## Overview
-The University of Central Asia Sport Management System is a web-based application built using Django and Postgres. It provides a comprehensive platform for managing sports-related activities at the university, including managing teams, scheduling games and practices, tracking player statistics, and more.
+# UCA-Sport-Management-System
 
-## Features
-User authentication and authorization
-Team management
-Game and practice scheduling
-Player registration and profile management
-Game and practice attendance tracking
-Player statistics tracking
-Coach and staff management
-News and announcements
-
-## Technologies Used
-Django
-Postgres
-HTML/CSS
-JavaScript
+## Introduction
+This is a project for the course of Software Engineering at UCA. The project is a sport management system for a gym. The system is able to manage the users, the trainers, the classes, the payments and the subscriptions. The system is also able to generate reports and statistics.
 
 ## Installation
-Clone the repository.
-Install Python and Django.
-Install the required dependencies using pip install -r requirements.txt.
-Create a Postgres database and update the DATABASES setting in settings.py.
-Run the migrations using python manage.py migrate.
-Create a superuser account using python manage.py createsuperuser.
-Start the server using python manage.py runserver.
+To install the project you need to have installed the following programs:
+- [python](https://www.python.org/downloads/)
+- [pip](https://pip.pypa.io/en/stable/installing/)
+- [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html)
+- [django](https://docs.djangoproject.com/en/3.1/topics/install/)
 
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
-## Credits
-This application was built by the Sport Management Team at the University of Central Asia.
+Once you have installed the programs, you need to clone the repository and create a virtual environment. To do that, you need to run the following commands:
+```bash
+git clone
+cd UCA-Sport-Management-System
+virtualenv venv
+```
+
+Then, you need to activate the virtual environment and install the dependencies:
+```bash
+
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+Finally, you need to run the migrations and start the server:
+```bash
+
+python manage.py migrate
+
+python manage.py runserver
+```
+
+## Usage
+
+To use the system, you need to create a superuser:
+```bash
+
+python manage.py createsuperuser
+```
+
+Then, you need to go to the admin page and create the objects that you need. To do that, you need to go to the following url:
+```
+
+http://localhost:8000/admin
+```
+
+To use the system, you need to go to the following url:
+```
+
+http://localhost:8000
+```
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+
+            
+    
