@@ -1,10 +1,17 @@
 {% extends 'base.html' %} {% block content %}
+{% load static%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'images/volleyball-solid.svg' %}">
 <body class="page-sign">
   {% if page == 'login' %}
   <!-- Login Page -->
   <div class="card card-sign">
     <div class="card-header">
-      <a href="#" class="header-logo mb-4">ucasports</a>
+      <div class="landing-header">
+        <a id="menuSidebarOffset" href="" class="menu-link me-3"><i class="fa-solid fa-volleyball"></i></a>
+        <a href="" class="sidebar-logo">ucasport</a>
+      </div>
+      <br>
       <h3 class="card-title">Sign In</h3>
       <p class="card-text">Welcome back! Please signin to continue.</p>
     </div>
@@ -78,7 +85,12 @@
   <!-- Register Page -->
   <div class="card card-sign">
     <div class="card-header">
-      <a href="#" class="header-logo mb-4">ucasports</a>
+      
+      <div class="landing-header">
+        <a id="menuSidebarOffset" href="" class="menu-link me-3"><i class="fa-solid fa-volleyball"></i></a>
+        <a href="" class="sidebar-logo">ucasport</a>
+      </div>
+      <br>
       <h3 class="card-title">Sign Up</h3>
       <p class="card-text">It's free to signup and only takes a minute.</p>
     </div>
