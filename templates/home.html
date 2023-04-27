@@ -2,33 +2,45 @@
 {% load static %}
 <html lang="en">
   <head>
-
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Meta -->
-    <meta name="description" content="">
-    <meta name="author" content="Themepixels">
+    <meta name="description" content="" />
+    <meta name="author" content="Themepixels" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/volleyball-solid.svg' %}">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'images/volleyball-solid.svg' %}"
+    />
 
     <title>UCA Sport Management System</title>
 
     <!-- Vendor CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-nTU3qhoAdH8Gp1dgrLvp//g33nGiHzZ4zk4tXTRXsPPzE0T/zBssT8SDt/LQJtCkTt7VdzvZ8Wb7Vz9fk1u/RA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="{% static 'css/remixicon.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="{% static 'css/remixicon.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}" />
   </head>
   <body>
     <div class="landing-headline">
       <div class="landing-header px-4 px-sm-5">
-        <a id="menuSidebarOffset" href="" class="menu-link me-3"><i class="fa-solid fa-volleyball"></i></a>
+        <a id="menuSidebarOffset" href="" class="menu-link me-3"
+          ><i class="fa-solid fa-volleyball"></i
+        ></a>
         <a href="" class="sidebar-logo">ucasport</a>
         <nav class="nav nav-icon">
           <a href="" class="nav-link"><i class="fa-brands fa-facebook"></i></a>
@@ -36,78 +48,97 @@
           <a href="" class="nav-link"><i class="fa-brands fa-instagram"></i></a>
           <a href="" class="nav-link"><i class="fa-brands fa-linkedin"></i></a>
         </nav>
-      </div><!-- landing-header -->
-      <div class="landing-body d-flex flex-column-reverse flex-lg-row align-items-center p-4 px-sm-5 py-lg-0">
+      </div>
+      <!-- landing-header -->
+      <div
+        class="landing-body d-flex flex-column-reverse flex-lg-row align-items-center p-4 px-sm-5 py-lg-0"
+      >
         <div class="headline-text mt-5 mt-lg-0">
-          <h1 class="text-dark mb-3 ff-secondary">Your all-in-one solution for managing sports activities!</h1>
-          <h4 class="fw-light lh-4 mb-4 lh-5">UCA's Sport Management System is a comprehensive online platform designed to simplify and streamline sports-related activities for students, staff, and faculty members. This website allows users to register for sports events, view schedules, track progress, communicate with teammates, and much more, all in one convenient location.</h4>
+          <h1 class="text-dark mb-3 ff-secondary">
+            Your all-in-one solution for managing sports activities!
+          </h1>
+          <h4 class="fw-light lh-4 mb-4 lh-5">
+            UCA's Sport Management System is a comprehensive online platform
+            designed to simplify and streamline sports-related activities for
+            students, staff, and faculty members. This website allows users to
+            register for sports events, view schedules, track progress,
+            communicate with teammates, and much more, all in one convenient
+            location.
+          </h4>
           <div class="d-flex gap-2">
-            <a id="viewDemo" href="" target="_blank" class="btn btn-lg btn-primary">View Demo</a>
-            <a href="http://127.0.0.1:8000/login/" class="btn btn-lg btn-primary">Log in</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="btn btn-lg btn-primary"
+              >Dashboard</a
+            >
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-lg btn-primary">Login</a>
+            {% endif %}
+
+            <a
+              id="viewDemo"
+              href="#"
+              target="_blank"
+              class="btn btn-lg btn-white"
+              >Demo</a
+            >
           </div>
-          
         </div>
         <div class="headline-content">
-          <div class="img-item one"><img src="{% static 'images/screen1.png' %}" alt="pic1"></div>
-          <div class="img-item two"><img src="{% static 'images/screen2.png' %}" alt="pic2"></div>
-          <div class="img-item three"><img src="{% static 'images/screen3.png' %}" alt="pic3"></div>
-        </div><!-- headline-content -->
-      </div><!-- landing-body -->
-    </div><!-- landing-headline -->
+          <div class="img-item one">
+            <img src="{% static 'images/screen1.png' %}" alt="pic1" />
+          </div>
+          <div class="img-item two">
+            <img src="{% static 'images/screen2.png' %}" alt="pic2" />
+          </div>
+          <div class="img-item three">
+            <img src="{% static 'images/screen3.png' %}" alt="pic3" />
+          </div>
+        </div>
+        <!-- headline-content -->
+      </div>
+      <!-- landing-body -->
+    </div>
+    <!-- landing-headline -->
 
     <footer>
-        <div class="container">
-            <div class="row">
-            <div class="col-md-4">
-                <h3>About us</h3>
-                <p>We are the University Sport Management System, dedicated to providing the best sports experience for students and faculty.</p>
-            </div>
-            <div class="col-md-4">
-                <h3>Contact Us</h3>
-                <ul class="contact">
-                <li><i class="fa fa-phone"></i>Phone: + (996) 040-404-0404 </li>
-                <li><i class="fa fa-envelope"></i>Email: ucasport@ucentralasia.org</li>
-                <li><i class="fa fa-map-marker"></i>Address: 123 Naryn</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h3>Connect With us</h3>
-                <ul class="social">
-                <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>About us</h3>
+            <p>
+              We are the University Sport Management System, dedicated to
+              providing the best sports experience for students and faculty.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h3>Contact us</h3>
+            <ul class="contact">
+              <li><i class="fa fa-phone"></i>Phone: + (996) 040-404-0404</li>
+              <li>
+                <i class="fa fa-envelope"></i>Email: ucasport@ucentralasia.org
+              </li>
+              <li><i class="fa fa-map-marker"></i>Address: 123 Naryn</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h3>Connect with us</h3>
+            <ul class="social">
+              <li>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </footer>
-
-
-
-
-
-    <script src="lib/jquery/jquery.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-
-    <script src="assets/js/script.js"></script>
-    <script>
-      'use script'
-
-      $('#dropdownDemo .dropdown-item').on('click', function(e){
-        e.preventDefault();
-
-        $(this).addClass('active').siblings().removeClass('active');
-
-        var demo = $(this).text();
-        $(this).closest('.dropdown').find('.dropdown-link span').text(demo);
-
-        var loc = $(this).attr('data-location');
-
-        $('#viewDemo').attr('href', loc);
-
-      });
-    </script>
   </body>
 </html>

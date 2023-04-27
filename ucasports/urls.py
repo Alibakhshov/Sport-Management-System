@@ -12,7 +12,7 @@ urlpatterns = [
     # path('faq/', views.faq, name="faq"),
     # path('contact/', views.contact, name="contact"),
     
-    # path('dashboard/', views.dashboard, name="dashboard"),
+    path('dashboard/', views.dashboard, name="dashboard"),
     # path('settings/', views.settings_page, name="settings"),
     path('activation/<str:uidb64>/<str:token>/', views.activate_user, name='activate_user'),
     

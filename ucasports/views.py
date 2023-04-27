@@ -29,7 +29,6 @@ class EmailThread(threading.Thread):
         
 
 def send_activation_email(user, request):
-    #current_site = get_current_site(request)
     token = generate_token.make_token(user)
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     verification_link = request.build_absolute_uri(reverse('activate_user', args=[uid, token]))
@@ -37,7 +36,6 @@ def send_activation_email(user, request):
     email_subject = 'Activate your account'
     email_body = render_to_string('_partials/activate.html', {
         'user': user,
-        #'domain': current_site,
         'verification_link': verification_link
         
     })
@@ -54,6 +52,12 @@ def send_activation_email(user, request):
 # Homepage
 def home(request):
     return render(request, 'home.html')
+
+
+# Dashboard (draft)
+def dashboard(request):
+    return render(request, 'home.html')
+
 
 # Login
 @auth_user_should_not_access
@@ -73,7 +77,7 @@ def loginPage(request):
                     return render(request, 'login_register.html', {'form': form, 'page': 'login'}, status=401)
 
                 login(request, user)
-                return redirect(reverse('home'))
+                return redirect(reverse('dashboard'))
             else:
                 messages.add_message(request, messages.ERROR,
                                      'Invalid credentials, try again')
@@ -132,7 +136,6 @@ def registerPage(request):
             send_activation_email(user, request)  # Send the activation email
             messages.add_message(request, messages.SUCCESS,
                                  'We sent you an email to verify your account')
-            #user.save()  # Save the user instance to the database after sending the email
 
             # Redirect to a success page or the login page
             return redirect('login')
@@ -148,6 +151,7 @@ def registerPage(request):
     
 
 # Password reset request view
+@auth_user_should_not_access
 def password_reset_request(request):
     if request.method == 'POST':
         form = PasswordResetRequestForm(request.POST)
@@ -156,6 +160,8 @@ def password_reset_request(request):
             try:
                 user = CustomUser.objects.get(email=email)
             except CustomUser.DoesNotExist:
+                messages.add_message(request, messages.ERROR,
+                                         'User with this email does not exist.')
                 user = None
                 
             if user is not None:
@@ -168,8 +174,6 @@ def password_reset_request(request):
                     'user': user,
                     'reset_link': reset_link
                 })
-
-                #send_mail(email_subject, email_body, settings.CONTACT_EMAIL, [user.email])
                 
                 email = EmailMessage(subject=email_subject, body=email_body,
                          from_email=settings.CONTACT_EMAIL,
@@ -184,7 +188,6 @@ def password_reset_request(request):
 
     else:
         form = PasswordResetRequestForm()
-
     
     return render(request, 'password_reset_request.html', {'form': form})
 
@@ -233,13 +236,10 @@ def activate_user(request, uidb64, token):
         user = None
 
     if user is not None and generate_token.check_token(user, token):
-        print("User found:", user) #debugging
-        print("Token is valid") #debugging
         user.is_active = True
         user.save()
 
         messages.add_message(request, messages.SUCCESS,
                              'Email verified, you can now login')
         return redirect(reverse('login'))
-    print("User not found or token is not valid") #debugging
     return render(request, 'activation_failed.html', {"user": user})
