@@ -1,5 +1,12 @@
 # Ignore virtual environment files
+.venv
+venv
 venv/
+.virtualenv
+virtualenv
+virtualenv/
+ENV/
+env/
 
 # Ignore .env file
 .env
