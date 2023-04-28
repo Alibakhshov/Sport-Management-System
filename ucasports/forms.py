@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.forms.widgets import TextInput, EmailInput, PasswordInput
-from .models import CustomUser
+from .models import CustomUser, Contact
 
 email_validator = RegexValidator(
     r'^[a-zA-Z0-9._%+-]+@ucentralasia\.org$',
@@ -68,11 +68,7 @@ class CustomUserCreationForm(forms.ModelForm):
             user.save()
 
         return user
-    # email = forms.EmailField(required=True, validators=[email_validator])
 
-    # class Meta:
-    #     model = CustomUser
-    #     fields = ['name', 'username', 'email', 'password1', 'password2']
 
 class CustomLoginForm(forms.Form):
     email = forms.EmailField(
@@ -102,3 +98,33 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ['name', 'username', 'email', 'bio', 'avatar']
+        
+        
+        
+class ContactForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={"class": "form-control", "placeholder": "e.g John Brown"}
+    ))
+    
+    email = forms.EmailField(widget=forms.EmailInput(
+        attrs={"class": "form-control", "placeholder": "user@example.com"}
+    ))
+    
+    subject = forms.CharField(widget=forms.TextInput(
+        attrs={"class": "form-control", "placeholder": "What would you like to talk about?"}
+    ))
+    
+    message = forms.CharField(widget=forms.Textarea(
+        attrs={"class": "form-control", "rows": 4}
+    ))
+    
+    # captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(
+    #     attrs={
+    #         'data-theme': 'dark',
+    #     }
+    # ))
+    
+    
+    class Meta:
+        model = Contact
+        fields = '__all__'
