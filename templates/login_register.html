@@ -1,17 +1,28 @@
-{% extends 'base.html' %} {% block content %}
-{% load static%}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="shortcut icon" type="image/x-icon" href="{% static 'images/volleyball-solid.svg' %}">
+{% extends 'base.html' %} {% block content %} {% load static%}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+  integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<link
+  rel="shortcut icon"
+  type="image/x-icon"
+  href="{% static 'images/volleyball-solid.svg' %}"
+/>
 <body class="page-sign">
   {% if page == 'login' %}
   <!-- Login Page -->
   <div class="card card-sign">
     <div class="card-header">
       <div class="landing-header">
-        <a id="menuSidebarOffset" href="" class="menu-link me-3"><i class="fa-solid fa-volleyball"></i></a>
+        <a id="menuSidebarOffset" href="" class="menu-link me-3"
+          ><i class="fa-solid fa-volleyball"></i
+        ></a>
         <a href="" class="sidebar-logo">ucasport</a>
       </div>
-      <br>
+      <br />
       <h3 class="card-title">Sign In</h3>
       <p class="card-text">Welcome back! Please signin to continue.</p>
     </div>
@@ -27,24 +38,7 @@
           </label>
           {{field}}
         </div>
-        {% endfor %}
-
-        <!-- <div class="mb-4">
-          <label class="form-label">Email address</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter your email address"
-          />
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label d-flex justify-content-between"
-            >Password <a href="">Forgot password?</a></label
-          >
-          <input type="password" class="form-control" placeholder="********" />
-        </div> -->
-        {% include '_partials/messages.html'%}
+        {% endfor %} {% include '_partials/messages.html'%}
 
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-primary btn-sign">
@@ -55,20 +49,6 @@
           >
         </div>
 
-        <!-- <div class="divider"><span>or sign in with</span></div>
-
-        <div class="row gx-2">
-          <div class="col">
-            <button class="btn btn-facebook">
-              <i class="ri-facebook-fill"></i> Facebook
-            </button>
-          </div>
-          <div class="col">
-            <button class="btn btn-google">
-              <i class="ri-google-fill"></i> Google
-            </button>
-          </div>
-        </div> -->
         <!-- row -->
       </div>
     </form>
@@ -85,12 +65,13 @@
   <!-- Register Page -->
   <div class="card card-sign">
     <div class="card-header">
-      
       <div class="landing-header">
-        <a id="menuSidebarOffset" href="" class="menu-link me-3"><i class="fa-solid fa-volleyball"></i></a>
+        <a id="menuSidebarOffset" href="" class="menu-link me-3"
+          ><i class="fa-solid fa-volleyball"></i
+        ></a>
         <a href="" class="sidebar-logo">ucasport</a>
       </div>
-      <br>
+      <br />
       <h3 class="card-title">Sign Up</h3>
       <p class="card-text">It's free to signup and only takes a minute.</p>
     </div>
@@ -120,22 +101,6 @@
         <button type="submit" class="btn btn-primary btn-sign">
           Create Account
         </button>
-
-        <!-- <div class="divider"><span>or sign up using</span></div>
-
-        <div class="row gx-2">
-          <div class="col">
-            <button class="btn btn-facebook">
-              <i class="ri-facebook-fill"></i> Facebook
-            </button>
-          </div>
-          <div class="col">
-            <button class="btn btn-google">
-              <i class="ri-google-fill"></i> Google
-            </button>
-          </div>
-        </div> -->
-        <!-- row -->
       </div>
     </form>
     <!-- card-body -->

@@ -56,7 +56,8 @@ def home(request):
 
 # Dashboard (draft)
 def dashboard(request):
-    return render(request, 'home.html')
+    context = {'page': 'dashboard'}
+    return render(request, 'dashboard.html', context)
 
 
 # Login

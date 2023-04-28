@@ -1,0 +1,22 @@
+{% load static %} {% if page == 'dashboard' %}
+
+    <link rel="stylesheet" href="{% static 'css/jqvmap/jqvmap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/apexcharts/apexcharts.css' %}" />
+
+    <script
+    defer=""
+    src="{% static 'js/lib/perfect-scrollbar/perfect-scrollbar.min.js' %}"
+    ></script>
+    <script defer="" src="{% static 'js/lib/chartjs/chart.min.js' %}"></script>
+    <script defer="" src="{% static 'js/lib/jqvmap/jquery.vmap.min.js' %}"></script>
+    <script defer="" src="{% static 'js/lib/jqvmap/jquery.vmap.usa.js' %}"></script>
+    <script
+    defer=""
+    src="{% static 'js/lib/apexcharts/apexcharts.min.js' %}"
+    ></script>
+
+    <script defer="" src="{% static 'js/script.js' %}"></script>
+    <script defer="" src="{% static 'js/lib/data/jquery/db.data.js' %}"></script>
+    <script defer="" src="{% static 'js/lib/data/jquery/db.sales.js' %}"></script>
+
+{% endif %}
