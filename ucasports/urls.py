@@ -13,6 +13,7 @@ urlpatterns = [
     # path('contact/', views.contact, name="contact"),
     
     path('dashboard/', views.dashboard, name="dashboard"),
+    path('calendar/', views.calendar, name="calendar"),
     # path('settings/', views.settings_page, name="settings"),
     path('activation/<str:uidb64>/<str:token>/', views.activate_user, name='activate_user'),
     

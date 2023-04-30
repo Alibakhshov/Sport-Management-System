@@ -59,6 +59,11 @@ def dashboard(request):
     context = {'page': 'dashboard'}
     return render(request, 'dashboard.html', context)
 
+# Dashboard (draft)
+def calendar(request):
+    context = {'page': 'calendar'}
+    return render(request, 'calendar.html', context)
+
 
 # Login
 @auth_user_should_not_access
