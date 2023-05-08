@@ -13,15 +13,9 @@
       </div>
 
       <nav class="nav nav-icon nav-icon-lg">
-        <a href="" class="nav-link" data-bs-toggle="tooltip" title="Share"
-          ><i class="ri-share-line"></i
-        ></a>
-        <a href="" class="nav-link" data-bs-toggle="tooltip" title="Print"
-          ><i class="ri-printer-line"></i
-        ></a>
-        <a href="" class="nav-link" data-bs-toggle="tooltip" title="Report"
-          ><i class="ri-bar-chart-2-line"></i
-        ></a>
+        <a href="" class="nav-link" data-bs-toggle="tooltip" title="" data-bs-original-title="Share" aria-label="Share"><i class="ri-share-line"></i></a>
+        <a href="" class="nav-link" data-bs-toggle="tooltip" title="" data-bs-original-title="Print" aria-label="Print"><i class="ri-printer-line"></i></a>
+        <a href="" class="nav-link" data-bs-toggle="tooltip" title="" data-bs-original-title="Report" aria-label="Report"><i class="ri-bar-chart-2-line"></i></a>
       </nav>
     </div>
 
@@ -32,12 +26,10 @@
           <div class="card-body">
             <label class="card-title fs-sm fw-medium mb-1">My Points</label>
             <h2 class="card-value d-flex align-items-baseline mb-0">
-              387 <small>points</small>
+              {{ rating_points }} <small>points</small>
             </h2>
-            <small
-              >More than
-              <span class="d-inline-flex text-success">24%</span> users</small
-            >
+            <small>More than
+              <span class="d-inline-flex text-success">{{ rating_percentile|floatformat:0 }}%</span> users</small>
           </div>
           <!-- card-body -->
         </div>
@@ -50,14 +42,12 @@
           <div class="card-body">
             <label class="card-title fs-sm fw-medium mb-1">My Sports</label>
             <h2 class="card-value d-flex align-items-baseline mb-0">
-              7 <small>sports</small>
+              {{ sports_count }} <small>sports</small>
             </h2>
-            <small
-              ><span class="d-inline-flex text-success">5</span>
+            <small><span class="d-inline-flex text-success">{{ single_player_count }}</span>
               single-player,
-              <span class="d-inline-flex text-success">2</span> team
-              sports</small
-            >
+              <span class="d-inline-flex text-success">{{ team_player_count }}</span> team
+              sports</small>
           </div>
           <!-- card-body -->
         </div>
@@ -70,12 +60,10 @@
           <div class="card-body">
             <label class="card-title fs-sm fw-medium mb-1">My Teams</label>
             <h2 class="card-value d-flex align-items-baseline mb-0">
-              4 <small> teams</small>
+              {{ user_teams_count }} <small> teams</small>
             </h2>
-            <small
-              ><span class="d-inline-flex text-success">2</span> team
-              sports</small
-            >
+            <small><span class="d-inline-flex text-success">{{ team_player_count }}</span> team
+              sports</small>
           </div>
           <!-- card-body -->
         </div>
@@ -86,16 +74,12 @@
         <!-- Weekly events -->
         <div class="card card-one">
           <div class="card-body">
-            <label class="card-title fs-sm fw-medium mb-1"
-              >Events this week</label
-            >
+            <label class="card-title fs-sm fw-medium mb-1">Events & competitions this week</label>
             <h2 class="card-value d-flex align-items-baseline mb-0">
-              12 <small>events</small>
+              {{ total_events_competitions }} <small>events</small>
             </h2>
-            <small
-              ><span class="d-inline-flex text-success">5 </span> more than last
-              week</small
-            >
+            <small><span class="d-inline-flex text-success">{{ last_week_total_events_competitions }} </span> 
+              last week</small>
           </div>
           <!-- card-body -->
         </div>
@@ -104,523 +88,171 @@
       <!-- col -->
       <div class="col-xl-7">
         <div class="card card-one">
-          <div class="card-header">
-            <h6 class="card-title">Monthly Growth Revenue</h6>
-            <nav class="nav nav-icon nav-icon-sm ms-auto">
-              <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
-              <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
-            </nav>
-          </div>
-          <!-- card-header -->
-          <div class="card-body">
-            <ul class="legend mb-3">
-              <li>Growth Actual</li>
-              <li>Actual</li>
-              <li>Plan</li>
-            </ul>
-            <div id="apexChart1" class="apex-chart-one mb-4"></div>
-            <div class="p-2">
-              <div class="row g-3">
-                <div class="col-sm-6">
-                  <h3 class="card-value mb-2"><span>$</span>834,631.18</h3>
-                  <label class="card-title fw-semibold text-dark mb-2"
-                    >Monthly Revenue Growth</label
-                  >
-                  <p class="mb-0 fs-xs text-secondary">
-                    Measure how fast you’re growing monthly recurring revenue.
-                  </p>
-                </div>
-                <!-- col -->
-                <div class="col-sm-6">
-                  <h3 class="card-value mb-2"><span>$</span>19,204.15</h3>
-                  <label class="card-title fw-semibold text-dark mb-2"
-                    >Monthly Revenue/Customer</label
-                  >
-                  <p class="mb-0 fs-xs text-secondary">
-                    The revenue generated per account on a monthly or yearly
-                    basis.
-                  </p>
-                </div>
-                <!-- col -->
-              </div>
-              <!-- row -->
-            </div>
-          </div>
-          <!-- card-body -->
-        </div>
-        <!-- card -->
+              <div class="card-header">
+                <h6 class="card-title">My Teams</h6>
+                <nav class="nav nav-icon nav-icon-sm ms-auto">
+                  <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                  <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                </nav>
+              </div><!-- card-header -->
+              <div class="card-body">
+                
+                <div class="table-responsive">
+                  <table class="table table-agent mb-0">
+                    <thead>
+                      <tr>                 
+                        <th>Team Name</th>
+                        <th>Sport</th>
+                        <th>Members</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                        <th>Rating points</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for team in user_teams %}
+                      <tr>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="avatar"><img src="{{ team.avatar.url }}" alt=""></div>
+                            <div>
+                              <h6 class="mb-0">{{ team.name }}</h6>
+                              
+                            </div>
+                          </div>
+                        </td>
+                        <td><span class="badge bg-warning">{{ team.sport }}</span></td>
+                        <td><span class="ff-numerals">{{ team.members.count }}</span></td>
+                        <td><span class="ff-numerals">{{ team.wins }}</span></td>
+                        <td><span class="ff-numerals">{{ team.losses }}</span></td>
+                        <td>
+                          
+                          <span class="d-block fw-medium text-dark ff-numerals" style="float: left;">{{ team.rating_points }}</span>
+                        </td>
+                        
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card-body -->
+            </div><!-- card -->
       </div>
       <!-- col -->
       <div class="col-md-6 col-xl-5">
         <div class="card card-one">
           <div class="card-header">
-            <h6 class="card-title">Account Retention</h6>
+            <h6 class="card-title">Events & Competitions this week</h6>
             <nav class="nav nav-icon nav-icon-sm ms-auto">
               <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
               <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
             </nav>
           </div>
           <!-- card-header -->
-          <div class="card-body">
-            <div id="apexChart2" class="apex-chart-one mb-3"></div>
-            <p class="mb-3 fs-xs">
-              Number of customers who have active subscription with you.
-            </p>
+          <div class="card-body p-2">
+            <ul class="events-list">
 
-            <div class="card p-3 d-flex flex-row mb-2">
-              <div class="card-icon bg-primary">
-                <i class="ri-bar-chart-grouped-line"></i>
-              </div>
-              <div class="ms-3">
-                <h4 class="card-value mb-1">53,100</h4>
-                <label class="card-title fw-medium text-dark mb-1"
-                  >Expansions</label
-                >
-                <p class="fs-xs text-secondary mb-0 lh-4">
-                  Customers who have upgraded the level of your products or
-                  service.
-                </p>
-              </div>
-            </div>
-            <div class="card p-3 d-flex flex-row">
-              <div class="card-icon bg-ui-02">
-                <i class="ri-bar-chart-grouped-line"></i>
-              </div>
-              <div class="ms-3">
-                <h4 class="card-value mb-1">2,884</h4>
-                <label class="card-title fw-medium text-dark mb-1"
-                  >Cancellations</label
-                >
-                <p class="fs-xs text-secondary mb-0 lh-4">
-                  Customers who have ended their subscription with you.
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- card-body -->
-        </div>
-        <!-- card -->
-      </div>
-      <!-- col -->
-      <div class="col-md-6 col-xl-4">
-        <div class="card card-one">
-          <div class="card-header">
-            <h6 class="card-title">Real Time Sales</h6>
-            <nav class="nav nav-icon nav-icon-sm ms-auto">
-              <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
-              <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
-            </nav>
-          </div>
-          <!-- card-header -->
-          <div class="card-body">
-            <div class="chart-bar-one"><canvas id="chartBar1"></canvas></div>
-          </div>
-          <!-- card-body -->
-        </div>
-        <!-- card -->
-      </div>
-      <!-- col -->
-      <div class="col-md-6 col-xl-4">
-        <div class="card card-one">
-          <div class="card-header">
-            <h6 class="card-title">Recent Sellers</h6>
-            <nav class="nav nav-icon nav-icon-sm ms-auto">
-              <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
-              <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
-            </nav>
-          </div>
-          <!-- card-header -->
-          <div class="card-body p-0">
-            <ul class="people-group">
-              <li class="people-item">
-                <div class="avatar">
-                  <img src="../assets/img/img6.jpg" alt="" />
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Allan Rey Palban</a></h6>
-                  <span>Customer ID#00222</span>
-                </div>
-                <!-- people-body -->
-                <nav class="nav nav-icon">
-                  <a href="" class="nav-link"
-                    ><i class="ri-user-star-line"></i
-                  ></a>
-                  <a href="" class="nav-link"
-                    ><i class="ri-contacts-line"></i
-                  ></a>
-                </nav>
+              {% for item in events_and_competitions_this_week %}
+              <li class="{% if forloop.first %}active{% endif %}">
+                <div class="event-date">
+                  <small>{{ item.start_date_time|date:"D" }}</small>
+                  <h5>{{ item.start_date_time|date:"d" }}</h5>
+                </div><!-- event-date -->
+                <div class="events-body">
+                  <div class="ev-item">
+                    <small>{{ item.start_date_time|time }} - {{ item.end_date_time|time }}</small>
+                    <h6>{{ item.name }}</h6>
+                    <p>{{ item.description }}</p>
+                  </div><!-- event-item -->
+                </div><!-- events-body -->
               </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <img src="../assets/img/img7.jpg" alt="" />
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Adrian Moniño</a></h6>
-                  <span>Customer ID#00221</span>
-                </div>
-                <!-- people-body -->
-                <nav class="nav nav-icon">
-                  <a href="" class="nav-link"
-                    ><i class="ri-user-star-line"></i
-                  ></a>
-                  <a href="" class="nav-link"
-                    ><i class="ri-contacts-line"></i
-                  ></a>
-                </nav>
-              </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <img src="../assets/img/img8.jpg" alt="" />
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Charlene Plateros</a></h6>
-                  <span>Customer ID#00220</span>
-                </div>
-                <!-- people-body -->
-                <nav class="nav nav-icon">
-                  <a href="" class="nav-link"
-                    ><i class="ri-user-star-line"></i
-                  ></a>
-                  <a href="" class="nav-link"
-                    ><i class="ri-contacts-line"></i
-                  ></a>
-                </nav>
-              </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <img src="../assets/img/img9.jpg" alt="" />
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Analyn Mercado</a></h6>
-                  <span>Customer ID#00219</span>
-                </div>
-                <!-- people-body -->
-                <nav class="nav nav-icon">
-                  <a href="" class="nav-link"
-                    ><i class="ri-user-star-line"></i
-                  ></a>
-                  <a href="" class="nav-link"
-                    ><i class="ri-contacts-line"></i
-                  ></a>
-                </nav>
-              </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <img src="../assets/img/img10.jpg" alt="" />
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Rolando Paloso</a></h6>
-                  <span>Customer ID#00218</span>
-                </div>
-                <!-- people-body -->
-                <nav class="nav nav-icon">
-                  <a href="" class="nav-link"
-                    ><i class="ri-user-star-line"></i
-                  ></a>
-                  <a href="" class="nav-link"
-                    ><i class="ri-contacts-line"></i
-                  ></a>
-                </nav>
-              </li>
+              {% endfor %}
+              
+              
             </ul>
           </div>
           <!-- card-body -->
-          <div class="card-footer d-flex justify-content-center">
-            <a href="" class="fs-sm">Manage Customers</a>
-          </div>
-          <!-- card-footer -->
         </div>
         <!-- card -->
       </div>
       <!-- col -->
-      <div class="col-md-6 col-xl-4">
-        <div class="card card-one">
-          <div class="card-header">
-            <h6 class="card-title">Transaction History</h6>
-            <nav class="nav nav-icon nav-icon-sm ms-auto">
-              <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
-              <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
-            </nav>
-          </div>
-          <!-- card-header -->
-          <div class="card-body p-0">
-            <ul class="people-group">
-              <li class="people-item">
-                <div class="avatar">
-                  <span class="avatar-initial bg-teal fs-20"
-                    ><i class="ri-shopping-cart-line"></i
-                  ></span>
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Purchase from #10322</a></h6>
-                  <span>Oct 21, 2023, 3:30pm</span>
-                </div>
-                <!-- people-body -->
-                <div class="text-end">
-                  <div class="fs-sm">+ $250.00</div>
-                  <span class="d-block fs-xs text-success">Completed</span>
-                </div>
-              </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <span class="avatar-initial bg-info fs-20"
-                    ><i class="ri-coins-line"></i
-                  ></span>
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Process refund to #00910</a></h6>
-                  <span>Oct 19, 2023, 3:30pm</span>
-                </div>
-                <!-- people-body -->
-                <div class="text-end">
-                  <div class="fs-sm">- $16.50</div>
-                  <span class="d-block fs-xs text-warning">Processing</span>
-                </div>
-              </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <span class="avatar-initial bg-primary fs-20"
-                    ><i class="ri-truck-line"></i
-                  ></span>
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Process delivery to #44333</a></h6>
-                  <span>Oct 18, 2023, 6:18pm</span>
-                </div>
-                <!-- people-body -->
-                <div class="text-end">
-                  <div class="fs-sm">3 Items</div>
-                  <span class="d-block fs-xs text-info">For pickup</span>
-                </div>
-              </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <span class="avatar-initial bg-pink fs-20"
-                    ><i class="ri-truck-line"></i
-                  ></span>
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Payment from #023328</a></h6>
-                  <span>Oct 18, 2023, 12:40pm</span>
-                </div>
-                <!-- people-body -->
-                <div class="text-end">
-                  <div class="fs-sm">+ $129.50</div>
-                  <span class="d-block fs-xs text-success">Completed</span>
-                </div>
-              </li>
-              <li class="people-item">
-                <div class="avatar">
-                  <span class="avatar-initial bg-secondary fs-20"
-                    ><i class="ri-secure-payment-line"></i
-                  ></span>
-                </div>
-                <div class="people-body">
-                  <h6><a href="">Payment failed #087651</a></h6>
-                  <span>Oct 15, 2023, 08:09am</span>
-                </div>
-                <!-- people-body -->
-                <div class="text-end">
-                  <div class="fs-sm">$150.20</div>
-                  <span class="d-block fs-xs text-danger">Declined</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <!-- card-body -->
-          <div class="card-footer d-flex justify-content-center">
-            <a href="" class="fs-sm">Manage Transactions</a>
-          </div>
-          <!-- card-footer -->
-        </div>
-        <!-- card -->
-      </div>
+      
       <!-- col -->
-      <div class="col-xl-5">
-        <div class="card card-one">
-          <div class="card-header">
-            <h6 class="card-title">Sales Revenue</h6>
-            <nav class="nav nav-icon nav-icon-sm ms-auto">
-              <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
-              <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
-            </nav>
-          </div>
-          <!-- card-header -->
-          <div class="card-body p-3 p-xl-4">
-            <div id="vmap" class="ht-200 mb-4"></div>
-
-            <table class="table table-one">
-              <thead>
-                <tr>
-                  <th>States</th>
-                  <th>Orders</th>
-                  <th>Earnings</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="fw-medium">
-                    <span class="badge-dot bg-twitter me-2"></span> California
-                  </td>
-                  <td>12,201</td>
-                  <td>$150,200.80</td>
-                </tr>
-                <tr>
-                  <td class="fw-medium">
-                    <span class="badge-dot bg-primary me-2"></span> Texas
-                  </td>
-                  <td>11,950</td>
-                  <td>$138,910.20</td>
-                </tr>
-                <tr>
-                  <td class="fw-medium">
-                    <span class="badge-dot bg-teal me-2"></span> Colorado
-                  </td>
-                  <td>11,198</td>
-                  <td>$132,050.00</td>
-                </tr>
-                <tr>
-                  <td class="fw-medium">
-                    <span class="badge-dot bg-info me-2"></span> Missouri
-                  </td>
-                  <td>9,885</td>
-                  <td>$127,762.10</td>
-                </tr>
-                <tr>
-                  <td class="fw-medium">
-                    <span class="badge-dot bg-pink me-2"></span> New York
-                  </td>
-                  <td>8,560</td>
-                  <td>$117,087.50</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- card-body -->
-        </div>
-        <!-- card -->
-      </div>
+      
       <!-- col -->
-      <div class="col-xl-7">
-        <div class="card card-one">
-          <div class="card-header">
-            <h6 class="card-title">Most Recent Earnings</h6>
-            <nav class="nav nav-icon nav-icon-sm ms-auto">
-              <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
-              <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
-            </nav>
-          </div>
-          <!-- card-header -->
-          <div class="card-body p-3 p-xl-4">
-            <div class="row g-3 mb-4">
-              <div class="col">
-                <div class="earning-item">
-                  <div class="earning-icon bg-primary">
-                    <i class="ri-medal-2-line"></i>
-                  </div>
-                  <h4><span>$</span>1,958,104</h4>
-                  <label>Gross Earnings</label>
-                </div>
-                <!-- earning-item -->
-              </div>
-              <!-- col -->
-              <div class="col">
-                <div class="earning-item">
-                  <div class="earning-icon bg-twitter">
-                    <i class="ri-pie-chart-line"></i>
-                  </div>
-                  <h4><span>$</span>234,769.50</h4>
-                  <label>Tax Witheld</label>
-                </div>
-                <!-- earning-item -->
-              </div>
-              <!-- col -->
-              <div class="col">
-                <div class="earning-item">
-                  <div class="earning-icon bg-success">
-                    <i class="ri-line-chart-fill"></i>
-                  </div>
-                  <h4><span>$</span>1,608,469.50</h4>
-                  <label>Net Earnings</label>
-                </div>
-                <!-- earning-item -->
-              </div>
-              <!-- col -->
-            </div>
+      
+      <!-- col -->
+      
+      <!-- col -->
+      
             <!-- row -->
 
-            <div class="table-responsive mb-4">
-              <table class="table table-two mb-0">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Sales Count</th>
-                    <th>Gross Earnings</th>
-                    <th>Tax Withheld</th>
-                    <th>% Earnings</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>03/05/2023</td>
-                    <td>1,050</td>
-                    <td class="text-success">+ $32,580.00</td>
-                    <td class="text-danger">- $3,023.10</td>
-                    <td>4.5%</td>
-                  </tr>
-                  <tr>
-                    <td>03/04/2023</td>
-                    <td>980</td>
-                    <td class="text-success">+ $30,065.10</td>
-                    <td class="text-danger">- $2,780.00</td>
-                    <td>3.8%</td>
-                  </tr>
-                  <tr>
-                    <td>03/04/2023</td>
-                    <td>954</td>
-                    <td class="text-success">+ $28,994.00</td>
-                    <td class="text-danger">- $2,540.60</td>
-                    <td>3.3%</td>
-                  </tr>
-                  <tr>
-                    <td>03/02/2023</td>
-                    <td>792</td>
-                    <td class="text-success">+ $25,300.90</td>
-                    <td class="text-danger">- $2,144.60</td>
-                    <td>2.9%</td>
-                  </tr>
-                  <tr>
-                    <td>02/28/2023</td>
-                    <td>788</td>
-                    <td class="text-success">+ $24,887.08</td>
-                    <td class="text-danger">- $1,980.00</td>
-                    <td>2.6%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- table-responsive -->
-            <h6 class="fw-semibold mb-1">
-              <a href="#">Download your earnings in CSV format.</a>
-            </h6>
-            <p class="fs-sm text-secondary mb-0">
-              Open it in a spreadsheet and perform your own calculations,
-              graphing etc. The CSV file contains additional details, such as
-              the buyer location.
-            </p>
-          </div>
-          <!-- card-body -->
-        </div>
-        <!-- card -->
-      </div>
-      <!-- col -->
-    </div>
-    <!-- row -->
+            
+            <div class="col-md-6">
+              <div class="card card-one">
+                <div class="card-header">
+                  <h6 class="card-title">My Single-Player Sports</h6>
+                  <nav class="nav nav-icon nav-icon-sm ms-auto">
+                    <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                    <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                  </nav>
+                </div><!-- card-header -->
+                <div class="card-body pt-0">
+                  <div class="table-responsive">
+                    <table class="table table-one">
+                      <thead>
+                        <tr>
+                          <th>Sport Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for sport in user_single_player_sports %}
+                        <tr>
+                          <td><div class="d-flex align-items-center fw-medium">{{ sport.name }}</div></td>
 
-    <div class="main-footer mt-5">
-      <span>&copy; 2023. UCA Sports. All Rights Reserved.</span>
-    </div>
-    <!-- main-footer -->
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                  </div><!-- table-responsive -->
+                </div><!-- card-body -->
+              </div><!-- card -->
+            </div>
+
+
+
+
+            <div class="col-md-6">
+              <div class="card card-one">
+                <div class="card-header">
+                  <h6 class="card-title">My Team-Player Sports</h6>
+                  <nav class="nav nav-icon nav-icon-sm ms-auto">
+                    <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                    <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                  </nav>
+                </div><!-- card-header -->
+                <div class="card-body pt-0">
+                  <div class="table-responsive">
+                    <table class="table table-one">
+                      <thead>
+                        <tr>
+                          <th>Sport</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for sport in user_team_player_sports %}
+                        <tr>
+                          <td><div class="d-flex align-items-center fw-medium">{{ sport.name }}</div></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div><!-- table-responsive -->
+                </div><!-- card-body -->
+              </div><!-- card -->
+            </div>
+
+    {% include '_partials/inner_footer.html'%}
   </div>
   <!-- main -->
 </body>

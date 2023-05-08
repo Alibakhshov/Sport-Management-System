@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 
+from datetime import datetime, timedelta
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, name, password=None, **extra_fields):
         if not email:
@@ -41,50 +43,121 @@ class CustomUser(AbstractUser):
     avatar = models.ImageField(null=True, default="avatar.jpg")
     
     is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    rating_points = models.IntegerField(default=0)
+    wins = models.IntegerField(default=0)
+    losses = models.IntegerField(default=0)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'name']
     
+    def __str__(self):
+        return self.name
+    
 
 
 class Sport(models.Model):
-    SPORT_TYPES = (
-        ('team', 'Team Sport'),
-        ('single', 'Single-Player Sport'),
+    SPORT_TYPE_CHOICES = (
+        ('Single-Player', 'Single-Player'),
+        ('Team-Player', 'Team-Player'),
     )
+
     name = models.CharField(max_length=100)
-    sport_type = models.CharField(max_length=10, choices=SPORT_TYPES)
+    sport_type = models.CharField(max_length=20, choices=SPORT_TYPE_CHOICES, default='Single-Player')
+
+    def __str__(self):
+        return self.name
     
 
     
 class Team(models.Model):
     name = models.CharField(max_length=100)
+    avatar = models.ImageField(null=True, default="team_avatar.jpg")
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
     members = models.ManyToManyField(CustomUser)
+    rating_points = models.IntegerField(default=0)
+    wins = models.IntegerField(default=0)
+    losses = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
     
     
 
 class Event(models.Model):
     name = models.CharField(max_length=100)
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date_time = models.DateTimeField()
+    end_date_time = models.DateTimeField()
+    location = models.CharField(max_length=200)
+    description = models.TextField()
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    description = models.TextField(null=True, blank=True)
-    participants = models.ManyToManyField(CustomUser, through='EventUserStatus', related_name='events')
+    participants = models.ManyToManyField(CustomUser, related_name="events_attended", blank=True)
+    declined_participants = models.ManyToManyField(CustomUser, related_name="events_declined", blank=True)
+
+    def __str__(self):
+        return self.name
     
 
-class EventUserStatus(models.Model):
-    EVENT_STATUS = (
-        ('accepted', 'Accepted'),
-        ('declined', 'Declined'),
-        ('undecided', 'Undecided'),
+class Competition(models.Model):
+    STATUS_CHOICES = (
+        ('Scheduled', 'Scheduled'),
+        ('Finished', 'Finished'),
     )
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    status = models.CharField(max_length=10, choices=EVENT_STATUS, default='undecided')
+
+    name = models.CharField(max_length=100)
+    sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
+    start_date_time = models.DateTimeField()
+    end_date_time = models.DateTimeField()
+    location = models.CharField(max_length=200)
+    description = models.TextField()
+    side_a = models.CharField(max_length=100)
+    side_b = models.CharField(max_length=100)
+    side_a_score = models.IntegerField(default=0)
+    side_b_score = models.IntegerField(default=0)
+    
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Scheduled')
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def side_a_name(self):
+        if self.sport.sport_type == 'Single-Player':
+            user = CustomUser.objects.get(pk=self.side_a)
+            return user.name
+        else:
+            team = Team.objects.get(pk=self.side_a)
+            return team.name
+
+    @property
+    def side_b_name(self):
+        if self.sport.sport_type == 'Single-Player':
+            user = CustomUser.objects.get(pk=self.side_b)
+            return user.name
+        else:
+            team = Team.objects.get(pk=self.side_b)
+            return team.name
+        
+    @property
+    def side_a_avatar(self):
+        if self.sport.sport_type == 'Single-Player':
+            user = CustomUser.objects.get(pk=int(self.side_a))
+            return user.avatar.url
+        elif self.sport.sport_type == 'Team-Player':
+            team = Team.objects.get(pk=int(self.side_a))
+            return team.avatar.url
+
+    @property
+    def side_b_avatar(self):
+        if self.sport.sport_type == 'Single-Player':
+            user = CustomUser.objects.get(pk=int(self.side_b))
+            return user.avatar.url
+        elif self.sport.sport_type == 'Team-Player':
+            team = Team.objects.get(pk=int(self.side_b))
+            return team.avatar.url
 
 
 class Notification(models.Model):
@@ -103,7 +176,6 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email
-
 
 class ContactAdmin(admin.ModelAdmin):
     list_display = ("name", "email", "subject")

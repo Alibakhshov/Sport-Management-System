@@ -2,8 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
-from django.forms.widgets import TextInput, EmailInput, PasswordInput
-from .models import CustomUser, Contact
+from django.forms.widgets import TextInput, EmailInput
+from .models import CustomUser, Contact, Team, Sport, Event, Competition
+from django.forms import ModelMultipleChoiceField, ModelChoiceField
+from django.urls import reverse
 
 email_validator = RegexValidator(
     r'^[a-zA-Z0-9._%+-]+@ucentralasia\.org$',
@@ -97,21 +99,18 @@ class SetNewPasswordForm(forms.Form):
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ['name', 'username', 'email', 'bio', 'avatar']
+        fields = ['name', 'username', 'bio', 'avatar']
         
         
         
 class ContactForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(
-        attrs={"class": "form-control", "placeholder": "e.g John Brown"}
-    ))
-    
+        attrs={"class": "form-control", 'readonly': 'readonly'}))
     email = forms.EmailField(widget=forms.EmailInput(
-        attrs={"class": "form-control", "placeholder": "user@example.com"}
-    ))
+        attrs={"class": "form-control", 'readonly': 'readonly'}))
     
     subject = forms.CharField(widget=forms.TextInput(
-        attrs={"class": "form-control", "placeholder": "What would you like to talk about?"}
+        attrs={"class": "form-control", "placeholder": "Subject"}
     ))
     
     message = forms.CharField(widget=forms.Textarea(
@@ -128,3 +127,84 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = '__all__'
+        
+
+class CustomUserChoiceField(ModelMultipleChoiceField):
+    def label_from_instance(self, obj):
+        return f"{obj.name} ({obj.email})"
+    
+    
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ['name', 'avatar', 'sport', 'members']
+        widgets = {
+            'members': forms.SelectMultiple(attrs={'class': 'form-select'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(TeamForm, self).__init__(*args, **kwargs)
+        self.fields['sport'].queryset = Sport.objects.filter(sport_type='Team-Player')
+        self.fields['sport'].empty_label = None
+        self.fields['sport'].required = True
+        self.fields['members'] = CustomUserChoiceField(queryset=CustomUser.objects.filter(is_superuser=False, is_staff=False), widget=forms.SelectMultiple(attrs={'class': 'form-select'}))
+        
+
+class SportForm(forms.ModelForm):
+    class Meta:
+        model = Sport
+        fields = ['name', 'sport_type']
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = [
+            'name',
+            'sport',
+            'start_date_time',
+            'end_date_time',
+            'location',
+            'description',
+        ]
+        widgets = {
+            'start_date_time': forms.DateTimeInput(attrs={'type': 'datetime-local', 'id': 'startDate'}),
+            'end_date_time': forms.DateTimeInput(attrs={'type': 'datetime-local', 'id': 'endDate'}),
+        }
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        self.fields['sport'].empty_label = None
+
+class CompetitionForm(forms.ModelForm):
+    class Meta:
+        model = Competition
+        fields = [
+            'name',
+            'sport',
+            'start_date_time',
+            'end_date_time',
+            'location',
+            'description',
+            'side_a',
+            'side_b',
+        ]
+        widgets = {
+            'sport': forms.Select(attrs={'id': 'sport_name'}),
+            'side_a': forms.Select(attrs={'class': 'form-select competitor'}),
+            'side_b': forms.Select(attrs={'class': 'form select competitor'}),
+            'start_date_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_date_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}), 
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super(CompetitionForm, self).__init__(*args, **kwargs)
+        self.fields['sport'].empty_label = None
+        
+        api_url = reverse('api_competitors')  # Generate the URL
+        self.fields['sport'].widget.attrs.update({'data-api-url': api_url})  # Set the data-api-url attribute
+
+
+class CompetitionUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Competition
+        fields = ['side_a_score', 'side_b_score', 'status']
+

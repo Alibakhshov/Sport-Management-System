@@ -1,0 +1,270 @@
+{% extends 'base.html' %} {% block content %}
+<body>
+    <!-- Sidebar -->
+  {% include '_partials/sidebar.html'%}
+
+  <!-- Header main -->
+  {% include '_partials/header_main.html'%}
+
+  <div class="main main-app p-3 p-lg-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+          <h4 class="main-title mb-0">Analytics</h4>
+        </div>
+  
+        <nav class="nav nav-icon nav-icon-lg">
+          <a href="" class="nav-link" data-bs-toggle="tooltip" title="" data-bs-original-title="Share" aria-label="Share"><i class="ri-share-line"></i></a>
+          <a href="" class="nav-link" data-bs-toggle="tooltip" title="" data-bs-original-title="Print" aria-label="Print"><i class="ri-printer-line"></i></a>
+          <a href="" class="nav-link" data-bs-toggle="tooltip" title="" data-bs-original-title="Report" aria-label="Report"><i class="ri-bar-chart-2-line"></i></a>
+        </nav>
+      </div>
+
+    <div class="row g-3">
+      <div class="col-xl-12">
+        <div class="row g-3">
+          <div class="col-6 col-sm">
+            <div class="card card-one">
+              <div class="card-body p-3">
+                <div class="d-block fs-40 lh-1 text-primary mb-1"><i class="ri-calendar-todo-line"></i></div>
+                <h1 class="card-value mb-0 ls--1 fs-32">{{ total_events }}</h1>
+                <label class="d-block mb-1 fw-medium text-dark">Overall Events</label>
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div><!-- col -->
+          <div class="col-6 col-sm">
+            <div class="card card-one">
+              <div class="card-body p-3">
+                <div class="d-block fs-40 lh-1 text-ui-02 mb-1"><i class="ri-calendar-check-line"></i></div>
+                <h1 class="card-value mb-0 fs-32 ls--1">{{ interested_events_count }}</h1>
+                <label class="d-block mb-1 fw-medium text-dark">Interested Events</label>
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div><!-- col -->
+          <div class="col-sm">
+            <div class="card card-one">
+              <div class="card-body p-3">
+                <div class="d-block fs-40 lh-1 text-secondary mb-1"><i class="ri-calendar-2-line"></i></div>
+                <h1 class="card-value mb-0 fs-32 ls--1">{{ declined_events_count }}</h1>
+                <label class="d-block mb-1 fw-medium text-dark">Declined Events</label>
+                
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div><!-- col -->
+          <!-- col -->
+        </div><!-- row -->
+      </div>
+      
+      
+      
+      <div class="col-xl-6">
+        <div class="card card-one">
+          <div class="card-header">
+            <h6 class="card-title">Top Teams by points</h6>
+            <nav class="nav nav-icon nav-icon-sm ms-auto">
+              <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+              <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+            </nav>
+          </div><!-- card-header -->
+          <div class="card-body">
+            
+            <div class="table-responsive">
+              <table class="table table-agent mb-0">
+                <thead>
+                  <tr>                 
+                    <th>Team Name</th>
+                    <th>Sport</th>
+                    <th>Members</th>                    
+                    <th>Rating points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for team in top_teams %}
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center gap-2">
+                        <div class="avatar"><img src="{{ team.avatar.url }}" alt=""></div>
+                        <div>
+                          <h6 class="mb-0">{{ team.name }}</h6>
+                          
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="badge bg-warning">{{ team.sport }}</span></td>
+                    <td><span class="ff-numerals">{{ team.members.count }}</span></td>
+                    <td>
+                      <span class="d-block fw-medium text-dark ff-numerals" style="float: left;">{{ team.rating_points }}</span>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  
+                  </tbody>
+              </table>
+            </div><!-- table-responsive -->
+          </div><!-- card-body -->
+        </div>
+        </div>
+      
+      
+        <div class="col-xl-6">
+          <div class="card card-one">
+            <div class="card-header">
+              <h6 class="card-title">Top Players by points</h6>
+              <nav class="nav nav-icon nav-icon-sm ms-auto">
+                <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+              </nav>
+            </div><!-- card-header -->
+            <div class="card-body">
+              
+              <div class="table-responsive">
+                <table class="table table-agent mb-0">
+                  <thead>
+                    <tr>                 
+                      <th>Player Name</th>                      
+                      <th>Number of Teams</th>                    
+                      <th>Rating points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for player in top_players %}
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center gap-2">
+                          <div class="avatar"><img src="{{ player.avatar.url }}" alt=""></div>
+                          <div>
+                            <h6 class="mb-0">{{ player.name }}</h6>
+                            
+                          </div>
+                        </div>
+                      </td>
+                      
+                      <td><span class="ff-numerals">{{ player.team_set.count }}</span></td>
+                      <td>
+                        <span class="d-block fw-medium text-dark ff-numerals" style="float: left;">{{ player.rating_points }}</span>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+              </div><!-- table-responsive -->
+            </div><!-- card-body -->
+          </div>
+        </div>
+
+
+
+        <div class="col-xl-6">
+
+          <div class="card card-one">
+              <div class="card-header">
+                <h6 class="card-title">Best Player overall</h6>
+                <nav class="nav nav-icon nav-icon-sm ms-auto">
+                  <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                  <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                </nav>
+              </div><!-- card-header -->
+              <div class="card-body pt-0">
+                <div class="table-responsive">
+                  <table class="table table-one">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                      <tr>
+                        <td>
+                        <div class="d-flex align-items-center gap-2">
+                          <div class="avatar"><img src="{{ best_player.avatar.url }}" alt=""></div>
+                          <div>
+                            <h6 class="mb-0">{{ best_player.name }}</h6>
+                            
+                          </div>
+                        </div>
+                      </td>
+                        
+                        <td>
+                          <div class="gap-1 text-primary fs-16">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                          </div>
+                        </td>
+                      </tr>
+            
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card-body -->
+            </div>
+        </div>
+
+
+        <div class="col-xl-6">
+
+          <div class="card card-one">
+              <div class="card-header">
+                <h6 class="card-title">Best Team overall</h6>
+                <nav class="nav nav-icon nav-icon-sm ms-auto">
+                  <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                  <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                </nav>
+              </div><!-- card-header -->
+              <div class="card-body pt-0">
+                <div class="table-responsive">
+                  <table class="table table-one">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                      <tr>
+                        <td>
+                        <div class="d-flex align-items-center gap-2">
+                          <div class="avatar"><img src="{{ best_team.avatar.url }}" alt=""></div>
+                          <div>
+                            <h6 class="mb-0">{{ best_team.name }}</h6>
+                            
+                          </div>
+                        </div>
+                      </td>
+                        
+                        <td>
+                          <div class="gap-1 text-primary fs-16">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                          </div>
+                        </td>
+                      </tr>
+            
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card-body -->
+            </div>
+        </div>
+          
+      
+      
+
+        
+      </div><!-- card-body -->
+      {% include '_partials/inner_footer.html'%}
+    </div>
+    <!-- main -->
+
+    <!-- main -->
+</body>
+{% endblock content %}

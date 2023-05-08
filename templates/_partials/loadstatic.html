@@ -1,4 +1,4 @@
-{% load static %} {% if page == 'dashboard' %}
+{% load static %}{% if page == 'dashboard' %}
 
     <link rel="stylesheet" href="{% static 'css/jqvmap/jqvmap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/apexcharts/apexcharts.css' %}" />
@@ -10,18 +10,17 @@
     <script defer="" src="{% static 'js/lib/chartjs/chart.min.js' %}"></script>
     <script defer="" src="{% static 'js/lib/jqvmap/jquery.vmap.min.js' %}"></script>
     <script defer="" src="{% static 'js/lib/jqvmap/jquery.vmap.usa.js' %}"></script>
+    
+
     <script
     defer=""
     src="{% static 'js/lib/apexcharts/apexcharts.min.js' %}"
     ></script>
 
     <script defer="" src="{% static 'js/script.js' %}"></script>
-    <script defer="" src="{% static 'js/lib/data/db.data.js' %}"></script>
-    <script defer="" src="{% static 'js/lib/data/db.sales.js' %}"></script>
+    
 
 {% elif page == 'calendar' %}
-
-    <link rel="stylesheet" href="{% static 'css/fullcalendar/main.min.css' %}" />
 
     <script
     defer=""
@@ -31,13 +30,43 @@
     <script defer="" src="{% static 'js/lib/moment/moment.min.js' %}"></script>
     <script defer="" src="{% static 'js/lib/fullcalendar/main.min.js' %}"></script>
     <script defer="" src="{% static 'js/script.js' %}"></script>
-    <script
-    defer=""
-    src="{% static 'js/lib/calendar-helpers/calendar-events.js' %}"
-    ></script>
+
     <script
     defer=""
     src="{% static 'js/lib/calendar-helpers/calendar.js' %}"
     ></script>
+
+    
+
+{% elif page == 'analytics' %}
+
+    <script
+    defer=""
+    src="{% static 'js/lib/perfect-scrollbar/perfect-scrollbar.min.js' %}"
+    ></script>
+    <script defer="" src="{% static 'js/script.js' %}"></script>
+
+
+{% elif page == 'site_manager' %}
+
+
+    <script
+    defer=""
+    src="{% static 'js/lib/perfect-scrollbar/perfect-scrollbar.min.js' %}"
+    ></script>
+    <!-- <script defer="" src="{% static 'js/lib/jqueryui/jquery-ui.min.js' %}"></script> -->
+    <script defer="" src="{% static 'js/lib/select2/select2.full.min.js' %}"></script>
+    <script defer="" src="{% static 'js/script.js' %}"></script>
+    <script defer="" src="{% static 'js/site-manager.js' %}"></script>
+
+
+{% elif page == 'profile' %}
+
+    <script
+    defer=""
+    src="{% static 'js/lib/perfect-scrollbar/perfect-scrollbar.min.js' %}"
+    ></script>
+    <script defer="" src="{% static 'js/script.js' %}"></script>
+    <script defer="" src="{% static 'js/profile.js' %}"></script>
 
 {% endif %}

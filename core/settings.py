@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "ucasports.apps.UcasportsConfig", # new
     
+    'rest_framework',
+    
 ]
 
 INSTALLED_APPS += [
@@ -123,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Bishkek"
 
 USE_I18N = True
 
@@ -155,10 +157,6 @@ else:
     # Email configuration sg
 
 
-
-    # To email (for reply)
-    ADMIN_EMAIL = ['4munis@gmail.com', ]
-
     # Twilio SendGrid
     EMAIL_HOST = 'smtp.sendgrid.net'
     EMAIL_PORT = 587
@@ -168,3 +166,6 @@ else:
 
 # from email
 CONTACT_EMAIL = 'ucasports@ucentral.asia'
+
+# To email (for reply)
+ADMIN_EMAIL = ['4munis@gmail.com', ]

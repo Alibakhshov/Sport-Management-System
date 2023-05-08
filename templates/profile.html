@@ -1,0 +1,433 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- Sidebar -->
+{% include '_partials/sidebar.html'%}
+
+<!-- Header main -->
+{% include '_partials/header_main.html'%}
+
+<body>
+  <div class="main p-4 p-lg-5 pt-hh">
+    <div class="row g-5">
+      <div class="col-xl">
+        <div class="media-profile mb-5">
+          <div class="media-img mb-3 mb-sm-0">
+            <img src="{{user.avatar.url}}" class="img-fluid" alt="profile-photo" />
+          </div>
+          <!-- media-img -->
+          <div class="media-body">
+            <h5 class="media-name">{{user.name}}</h5>
+            <p class="d-flex gap-2 mb-4">@{{user.username}}</p>
+            <p class="mb-0">
+              {{user.bio|truncatechars:184}}
+            </p>
+          </div>
+          <!-- media-body -->
+        </div>
+        <!-- media-profile -->
+
+        <div class="row row-cols-sm-auto g-4 g-md-5 g-xl-4 g-xxl-5 mb-5">
+          <div class="col">
+            <div class="profile-item">
+              <i class="ri-medal-2-line"></i>
+              <div class="profile-item-body">
+                <p>Rating</p>
+                <span>{{ rating_points }} points</span>
+              </div>
+              <!-- profile-item-body -->
+            </div>
+            <!-- profile-item -->
+          </div>
+          <!-- col -->
+          <div class="col">
+            <div class="profile-item">
+              <i class="ri-suitcase-line"></i>
+              <div class="profile-item-body">
+                <p>Teams</p>
+                <span>{{ user_teams_count }} teams</span>
+              </div>
+              <!-- profile-item-body -->
+            </div>
+            <!-- profile-item -->
+          </div>
+          <!-- col -->
+          <div class="col">
+            <div class="profile-item">
+              <i class="ri-team-line"></i>
+              <div class="profile-item-body">
+                <p>Sports</p>
+                <span>{{ sports_count }} sports</span>
+              </div>
+              <!-- profile-item-body -->
+            </div>
+            <!-- profile-item -->
+          </div>
+          <!-- col -->
+          <div class="col">
+            <div class="profile-item">
+              <i class="ri-team-line"></i>
+              <div class="profile-item-body">
+                <p>Events interested</p>
+                <span>{{ interested_events_count }} events</span>
+              </div>
+              <!-- profile-item-body -->
+            </div>
+            <!-- profile-item -->
+          </div>
+          <!-- col -->
+        </div>
+        <!-- row -->
+
+        {% include '_partials/messages.html'%}
+
+        <ul id="myTab" role="tablist" class="mb-4 nav nav-tabs">
+
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link profile-tab-link custom-tab-link active"
+              id="events-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#events"
+              type="button"
+              role="tab"
+              
+            >
+              Upcoming Events
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link profile-tab-link custom-tab-link"
+              id="settings-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#settings"
+              type="button"
+              role="tab"
+              
+            >
+              Profile Settings
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link profile-tab-link custom-tab-link"
+              id="support-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#support"
+              type="button"
+              role="tab"
+              
+            >
+              Support
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+
+
+
+          <div
+            class="tab-pane fade active show"
+            id="events"
+            role="tabpanel"
+            aria-labelledby="events-tab"
+          >
+            <!-- Events Tab -->
+            <div class="row g-3">
+              {% for event in events_this_week %}
+              <div class="col-sm-6">
+                
+                <div class="card card-event event" data-event-id="{{ event.id }}">
+                  <div class="card-body">
+                    <h6><a href="">{{ event.name }}</a></h6>
+                    <p class="mb-0">{{ event.start_date_time|date:"j M" }}</p>
+                    <p class="text-secondary fs-sm">{{ event.location }}</p>
+
+                    <div class="mutual-badge">
+                      <label>{{ event.participants.count }} user(s) interested</label>
+                    </div>
+
+                    <div class="mutual-badge">
+                      <label class="text-black">Event created by {{ event.creator}}</label>
+                    </div>
+                    <!-- mutual-badge -->
+                  </div>
+                  <!-- card-body -->
+                  <div class="card-footer">
+                    <form method="POST" action="{% url 'event_action' event_id=event.pk action='interested' %}">
+                      {% csrf_token %}
+                    <button type="submit" class="btn btn-primary interested-btn">
+                      {% if user in event.participants.all %}
+                      <i class="ri-star-fill"></i> 
+                      {% else %}                      
+                      <i class="ri-star-line"></i> 
+                      {% endif %}
+
+                      Interested</button
+                    >
+                  </form>
+                  <form method="POST" action="{% url 'event_action' event_id=event.pk action='decline' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-white decline-btn"><i class="ri-close-line"></i> Decline</button
+                    >
+                  </form>
+                  </div>
+                  <!-- card-footer -->
+                </div>
+                
+                <!-- card -->
+              </div>
+              {% endfor %}
+              <!-- col -->
+              
+
+            </div>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="settings"
+            role="tabpanel"
+            aria-labelledby="settings-tab"
+          >
+            <!-- Profile Settings Tab -->
+            {% load widget_tweaks %}
+            <form action="/profile/" method="POST" name="update_form" enctype="multipart/form-data"> 
+              {% csrf_token %}
+              <input type="hidden" name="form_type" value="user_form">
+            <div class="card card-settings">
+              <div class="card-header">
+                <h5 class="card-title">Edit information</h5>
+                <p class="card-text">
+                  Update your name, username, email and other information
+                </p>
+              </div>
+              <!-- card-header -->
+              <div class="card-body p-0">
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Name</h6>
+                      <p>Edit your name</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ user_form.name|add_class:"form-control" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Username</h6>
+                      <p>Edit your username</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      <div class="input-group">
+                        <div class="input-group-text">@</div>
+                        {{ user_form.username|add_class:"form-control"|attr:"id:autoSizingInputGroup" }}
+
+                      </div>
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5">
+                      <h6>Bio</h6>
+                      <p>Edit your bio info</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ user_form.bio|add_class:"form-control"|attr:"rows:3" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Avatar photo</h6>
+                      <p>Update your avatar</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ user_form.avatar|add_class:"form-control"|attr:"id:formFile" }}
+                      <!-- <input class="form-control" type="file" id="formFile" /> -->
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5"></div>
+                    <!-- col -->
+                    <div class="col-md">
+                      
+                      
+                      <button type="submit" class="btn btn-primary">
+                        Save changes
+                      </button>
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+              </div>
+              <!-- card-body -->
+            </div>
+            </form>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="support"
+            role="tabpanel"
+            aria-labelledby="settings-tab"
+          >
+            <!-- Support Tab -->
+            <form action="/profile/" method="POST" name="update_form"> 
+              {% csrf_token %}
+              <input type="hidden" name="form_type" value="contact_form">
+            <div class="card card-settings">
+              <div class="card-header">
+                <h5 class="card-title">Support</h5>
+                <p class="card-text">
+                  Feel free to contact us if you have any questions,
+                  suggestions, or need help
+                </p>
+              </div>
+              <!-- card-header -->
+              <div class="card-body p-0">
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Name</h6>
+                      <p>Your Name</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+
+
+                      <!-- <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Full Name"
+                      /> -->
+                      {{ contact_form.name }}
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Email</h6>
+                      <p>Your email address</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      <!-- <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Full Name"
+                      /> -->
+                      {{ contact_form.email }}
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Subject</h6>
+                      <p>What do you need help with?</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      <!-- <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Full Name"
+                      /> -->
+                      {{ contact_form.subject }}
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5">
+                      <h6>Message</h6>
+                      <p>Please be specific</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ contact_form.message }}
+                      <!-- <textarea
+                        class="form-control"
+                        rows="3"
+                        placeholder="Message"
+                      ></textarea> -->
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5"></div>
+                    <!-- col -->
+                    <div class="col-md">
+                                       
+                      <button type="submit" class="btn btn-primary">
+                        Send message
+                      </button>
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+              </div>
+              <!-- card-body -->
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- col -->
+      <div class="col-xl-4 col-xxl-3 d-none d-xl-block">
+
+        <hr class="my-4 opacity-0" />
+      </div>
+    </div>
+    <!-- row -->
+
+    {% include '_partials/inner_footer.html'%}
+  </div>
+  <!-- main -->
+</body>
+
+{% endblock content %}

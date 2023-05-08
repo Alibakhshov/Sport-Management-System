@@ -1,0 +1,686 @@
+{% extends 'base.html' %} {% block content %}
+<body>
+  <!-- Sidebar -->
+  {% include '_partials/sidebar.html'%}
+
+  <!-- Header main -->
+  {% include '_partials/header_main.html'%}
+
+  <div class="main main-app p-3 p-lg-4 p-xxl-5">
+    <div class="row row-cols-auto g-4 g-xxl-5">
+      <div class="col-xl">
+        <h2 class="main-title fs-4 mb-1">Site manager</h2>
+
+        <div class="mt-2">
+          {% include '_partials/messages.html'%}
+        </div>
+
+        <ul id="myTab" role="tablist" class="mt-4 mb-4 nav nav-tabs">
+
+          <li role="presentation" class="nav-item">
+            <button
+              class="nav-link profile-tab-link custom-tab-link active"
+              id="addsports-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#addsports"
+              type="button"
+              role="tab"
+           
+            >
+              Add Sports
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link profile-tab-link custom-tab-link"
+              id="addteams-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#addteams"
+              type="button"
+              role="tab"
+              
+            >
+              Add Teams
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link profile-tab-link custom-tab-link"
+              id="addcompetitions-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#addcompetitions"
+              type="button"
+              role="tab"
+              
+            >
+              Add Competitions
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <div
+            class="tab-pane fade active show"
+            id="addsports"
+            role="tabpanel"
+            aria-labelledby="addsports-tab"
+          >
+            <!-- Add Sports Tab -->
+            {% load widget_tweaks %}
+            <form method="POST" enctype="multipart/form-data"> 
+              {% csrf_token %}
+            <div class="card card-settings">
+              <div class="card-header">
+                <h5 class="card-title">Add New Sport</h5>
+                <p class="card-text">
+                  Add sports to the database
+                </p>
+              </div>
+              <!-- card-header -->
+              <div class="card-body p-0">
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Sport Name</h6>
+                      <p>Add sport name i.e Football, Basketball, Chess, etc.</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ sport_form.name|add_class:"form-control"|attr:"placeholder:Football" }}
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5">
+                      <h6>Sport type</h6>
+                      <p>Indicate the sport type i.e Single-Player sport or Team-Player</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                        {{ sport_form.sport_type|add_class:"form-select" }}
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5"></div>
+                    <!-- col -->
+                    <div class="col-md">
+                      
+                      <button type="submit" name="add_sport" class="btn btn-primary">
+                        Add Sport
+                      </button>
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+              </div>
+              <!-- card-body -->
+            </div>
+            </form>
+
+
+          </div>
+          <div
+            class="tab-pane fade"
+            id="addteams"
+            role="tabpanel"
+            aria-labelledby="addteams-tab"
+          >
+            <!-- Add Teams Tab -->
+            {% load widget_tweaks %}
+            <form method="POST" enctype="multipart/form-data"> 
+              {% csrf_token %}
+            <div class="card card-settings">
+              <div class="card-header">
+                <h5 class="card-title">Add New Team</h5>
+                <p class="card-text">
+                  Add different sport teams to the database
+                </p>
+              </div>
+              <!-- card-header -->
+              <div class="card-body p-0">
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Team Name</h6>
+                      <p>Add a cool name for a new team i.e "Titans" </p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ team_form.name|add_class:"form-control"|attr:"placeholder:Titans" }}
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5">
+                      <h6>Sport</h6>
+                      <p>What sport does this team belong to?</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                        {{ team_form.sport|add_class:"form-select" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Team Logo</h6>
+                      <p>Upload your team logo image</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ team_form.avatar|add_class:"form-control"|attr:"id:formFile" }}
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                    <div class="row g-2 align-items-center">
+                      <div class="col-md-5">
+                        <h6>Team Members</h6>
+                        <p>Add members to your team</p>
+                      </div>
+                      <!-- col -->
+                      <div class="col-md">
+                        {{ team_form.members }}
+                      </div>
+                      <!-- col -->
+                    </div>
+                    <!-- row -->
+                  </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5"></div>
+                    <!-- col -->
+                    <div class="col-md">
+                                      
+                      <button type="submit" name="add_team" class="btn btn-primary">
+                        Add Team
+                      </button>
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+              </div>
+              <!-- card-body -->
+            </div>
+            </form>
+
+
+          </div>
+          <div
+            class="tab-pane fade"
+            id="addcompetitions"
+            role="tabpanel"
+            aria-labelledby="addcompetitions-tab"
+          >
+            <!-- Add Competitions Tab -->
+            {% load widget_tweaks %}
+            <form method="POST" enctype="multipart/form-data"> 
+              {% csrf_token %}
+            <div class="card card-settings">
+              <div class="card-header">
+                <h5 class="card-title">Add New Competition</h5>
+                <p class="card-text">
+                  Add Single-Player or Team-Player sport competition
+                </p>
+              </div>
+              <!-- card-header -->
+              <div class="card-body p-0">
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Competition Name</h6>
+                      <p>Add your competition name</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.name|add_class:"form-control"|attr:"placeholder:Football Grand Final" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Sport</h6>
+                      <p>What sport does this competition belong to?</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.sport|add_class:"form-select" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5">
+                      <h6>Start Date/Time</h6>
+                      <p>Indicate the competition start date and time</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.start_date_time|add_class:"form-control" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5">
+                      <h6>End Date/Time</h6>
+                      <p>Indicate the competition end date and time</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.end_date_time|add_class:"form-control" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Competitor A</h6>
+                      <p>Select the first competitior name or team name</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.side_a }}
+                
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Competitor B</h6>
+                      <p>Select the second competitior name or team name</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.side_b }}
+                
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Competition Description</h6>
+                      <p>Some info about this competition</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.description|add_class:"form-control"|attr:"rows:3" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-md-5">
+                      <h6>Competition Location</h6>
+                      <p>Where this competition will be held?</p>
+                    </div>
+                    <!-- col -->
+                    <div class="col-md">
+                      {{ competition_form.location|add_class:"form-control"|attr:"placeholder:Sport Bubble" }}
+
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+                <div class="setting-item">
+                  <div class="row g-2">
+                    <div class="col-md-5"></div>
+                    <!-- col -->
+                    <div class="col-md">
+                                       
+                      <button type="submit" name="add_competition" class="btn btn-primary">
+                        Add competition
+                      </button>
+                    </div>
+                    <!-- col -->
+                  </div>
+                  <!-- row -->
+                </div>
+                <!-- setting-item -->
+              </div>
+              <!-- card-body -->
+            </div>
+            </form>
+          </div>
+
+        </div>
+
+        <div class="row g-3 g-lg-4">
+          
+          <!-- Users Competitions -->
+          <div class="col-12 pt-4">
+            <div class="card card-one">
+              <div class="card-header">
+                <h6 class="card-title">Users Competitions</h6>
+                <nav class="nav nav-icon nav-icon-sm ms-auto">
+                  <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                  <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                </nav>
+              </div><!-- card-header -->
+              <div class="card-body">
+                
+                <div class="table-responsive">
+                  <table class="table table-agent mb-0">
+                    <thead>
+                      <tr>
+                        
+                        
+                        <th>User A</th>
+                        <th>Versus</th>
+                        <th>User B</th>
+                        <th>Sport</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {% for competition in users_competitions %}
+                      <tr>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="avatar"><img src="{{ competition.side_a_avatar }}" alt=""></div>
+                            <div>
+                              <h6 class="mb-0">{{ competition.side_a_name }}</h6>
+                              
+                            </div>
+                          </div>
+                        </td>
+                        <td><span class="ff-numerals">vs</span><div></div></td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="avatar"><img src="{{ competition.side_b_avatar }}" alt=""></div>
+                            <div>
+                              <h6 class="mb-0">{{ competition.side_b_name }}</h6>
+                              
+                            </div>
+                          </div>
+                        </td>
+                        <td><span class="ff-numerals">{{ competition.sport }}</span></td>
+                        <td>
+                          
+                          <span class="d-block fw-medium text-dark ff-numerals" style="float: left;">{{competition.side_a_score}} : {{competition.side_b_score}}</span>
+                        </td>
+                        <td><span class="badge bg-success">{{competition.status}}</span></td>
+                        <td><button type="button" style="width: 100%;" class="btn btn-outline-dark btn-sm flbtn  update-competition-btn" data-competition-id="{{ competition.id }}" data-side-a-score="{{ competition.side_a_score }}" data-side-b-score="{{ competition.side_b_score }}" {% if competition.status == 'Finished' %}disabled{% endif %}>Update</button></td>
+                      </tr>
+                      <tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No users competitions found</td>
+                            </tr>
+                        {% endfor %}
+                        
+
+                        
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div>
+
+          <!-- Teams Competitions -->
+          <div class="col-12">
+            <div class="card card-one">
+              <div class="card-header">
+                <h6 class="card-title">Teams Competitions</h6>
+                <nav class="nav nav-icon nav-icon-sm ms-auto">
+                  <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                  <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                </nav>
+              </div><!-- card-header -->
+              <div class="card-body">
+                
+                <div class="table-responsive">
+                  <table class="table table-agent mb-0">
+                    <thead>
+                      <tr>
+                        
+                        
+                        <th>Team A</th>
+                        <th>Versus</th>
+                        <th>Team B</th>
+                        <th>Sport</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {% for competition in teams_competitions %}
+                      <tr>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="avatar"><img src="{{ competition.side_a_avatar }}" alt=""></div>
+                            <div>
+                              <h6 class="mb-0">{{ competition.side_a_name }}</h6>
+                              
+                            </div>
+                          </div>
+                        </td>
+                        <td><span class="ff-numerals">vs</span><div></div></td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="avatar"><img src="{{ competition.side_b_avatar }}" alt=""></div>
+                            <div>
+                              <h6 class="mb-0">{{ competition.side_b_name }}</h6>
+                              
+                            </div>
+                          </div>
+                        </td>
+                        <td><span class="ff-numerals">{{ competition.sport }}</span></td>
+                        <td>
+                          
+                          <span class="d-block fw-medium text-dark ff-numerals" style="float: left;">{{competition.side_a_score}} : {{competition.side_b_score}}</span>
+                        </td>
+                        <td><span class="badge bg-success">{{competition.status}}</span></td>
+                        <td><button type="button" style="width: 100%;" class="btn btn-outline-dark btn-sm flbtn  update-competition-btn" data-competition-id="{{ competition.id }}" data-side-a-score="{{ competition.side_a_score }}" data-side-b-score="{{ competition.side_b_score }}" {% if competition.status == 'Finished' %}disabled{% endif %}>Update</button></td>
+                      </tr>
+                      <tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No teams competitions found</td>
+                            </tr>
+                        {% endfor %}
+                        
+
+                        
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div>
+
+          <!-- Sports -->
+          <div class="col-md-6">
+            <div class="card card-one">
+              <div class="card-header">
+                <h6 class="card-title">Sports</h6>
+                <nav class="nav nav-icon nav-icon-sm ms-auto">
+                  <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                  <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                </nav>
+              </div><!-- card-header -->
+              <div class="card-body pt-0">
+                <div class="table-responsive">
+                  <table class="table table-one">
+                    <thead>
+                      <tr>
+                        <th>Sport Name</th>
+                        
+                        <th>Number of Teams</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for sport_data in sports_with_team_count %}
+                      <tr>
+                        <td><div class="d-flex align-items-center fw-medium">{{ sport_data.sport.name }}</div></td>
+                        
+                        <td>{{ sport_data.teams_count }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div>
+
+          <!-- Teams -->
+          <div class="col-md-6">
+            <div class="card card-one">
+              <div class="card-header">
+                <h6 class="card-title">Teams</h6>
+                <nav class="nav nav-icon nav-icon-sm ms-auto">
+                  <a href="" class="nav-link"><i class="ri-refresh-line"></i></a>
+                  <a href="" class="nav-link"><i class="ri-more-2-fill"></i></a>
+                </nav>
+              </div><!-- card-header -->
+              <div class="card-body pt-0">
+                <div class="table-responsive">
+                  <table class="table table-one">
+                    <thead>
+                      <tr>
+                        <th>Team Name</th>
+                        
+                        <th>Number of Players</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for team_data in teams_with_player_count %}
+                      <tr>
+                        <td><div class="d-flex align-items-center fw-medium">{{ team_data.team.name }}</div></td>
+                        
+                        <td>{{ team_data.players_count }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div>
+
+        </div><!-- row -->
+      </div><!-- col -->
+
+    </div><!-- row -->
+
+
+  {% include '_partials/inner_footer.html'%}
+</div>
+<!-- main -->
+
+<div class="modal modal-event fade" id="competitionUpdateModal" tabindex="-1" role="dialog" aria-labelledby="competitionUpdateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      {% load widget_tweaks %}
+        <form method="POST" enctype="multipart/form-data"> 
+          {% csrf_token %}
+          <input type="hidden" name="competition_id" id="competitionIdInput">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabelCreateEvent">Update Competition</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div><!-- modal-header -->
+      <div class="modal-body">
+
+        <div class="score" style="display: flex;justify-content: space-between;align-items: center;">
+          <div class="mb-3">
+            
+            <label class="form-label">Side A Score</label>
+            {{ competition_update_form.side_a_score|add_class:"form-control"|attr:"id:sideAScoreInput" }}
+          </div>
+
+          <span class="d-block fw-medium text-dark ff-numerals" style="float: left">:</span>
+              <div class="mb-3">
+                <label class="form-label">Side B Score</label>
+                {{ competition_update_form.side_b_score|add_class:"form-control"|attr:"id:sideBScoreInput" }}
+              </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            {{ competition_update_form.status|add_class:"form-select" }}
+
+          </div>
+
+      </div><!-- modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name="update_competition" class="btn btn-primary" >Update</button>
+
+        
+      </div><!-- modal-footer -->
+    </form>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+
+
+
+
+</body>
+{% endblock content %}

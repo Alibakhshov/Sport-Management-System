@@ -185,3 +185,48 @@ $("#layoutDirection .nav-link").on("click", function (e) {
 
   window.location.href = newLoc;
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let url = location.href.replace(/\/$/, "");
+
+  const hash = url.split("#");
+  if (hash.length > 1) {
+    url = location.href.replace(/\/#/, "#");
+    history.replaceState("", document.title, url);
+    setTimeout(_ => {
+      const tabTarget = document.querySelector(`#${hash[1]}-tab`);
+      if (tabTarget) {
+        const bootstrapTab = new bootstrap.Tab(tabTarget);
+        bootstrapTab.show();
+      }
+    }, 0);
+  }
+
+  const tabs = document.querySelectorAll(".profile-tab-link");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", function (event) {
+      event.preventDefault();
+      const targetTabId = this.getAttribute("data-bs-target") || this.hash.replace("#", "#");
+      const tab = new bootstrap.Tab(document.querySelector(targetTabId));
+      tab.show();
+
+      let newUrl;
+      const hash = targetTabId.replace("-tab", "");
+      if (hash === "") {
+        newUrl = location.href.split("#")[0];
+      } else {
+        newUrl = location.href.replace(/#.*$/, "") + hash;
+      }
+      history.replaceState("", document.title, newUrl);
+    });
+  });
+});
+
+// Select2 Multiple
+$('#id_members').select2({
+  placeholder: 'Choose multiple users',
+  minimumResultsForSearch: Infinity
+});
+
+
