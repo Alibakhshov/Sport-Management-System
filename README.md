@@ -1,64 +1,107 @@
-# UCA-Sport-Management-System
+# Sport Management System
 
-## Introduction
-This is a project for the course of Software Engineering at UCA. The project is a sport management system for a gym. The system is able to manage the users, the trainers, the classes, the payments and the subscriptions. The system is also able to generate reports and statistics.
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Steps](#steps)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+The Sport Management System is a web application built with Django, designed to streamline and simplify the management of sports-related activities. It provides a comprehensive platform for managing teams, players, fixtures, and other essential aspects of sports administration.
+
+## Features
+
+- **User Authentication:** Secure user authentication system to ensure that only authorized users can access and modify data.
+
+- **Team Management:** Create, update, and delete teams. Assign players to teams and manage team details.
+
+- **Player Management:** Maintain a database of players, including personal information, skill levels, and performance statistics.
+
+- **Fixture Management:** Schedule and manage fixtures for different sports, including date, time, and venue details.
+
+- **Results Tracking:** Record and display match results, allowing users to keep track of team performances.
+
+- **Statistics and Analytics:** Generate and view statistical insights, such as player performance metrics, team standings, and more.
+
+- **Admin Dashboard:** An intuitive admin dashboard for administrators to manage users, teams, and overall system settings.
 
 ## Installation
-To install the project you need to have installed the following programs:
-- [python](https://www.python.org/downloads/)
-- [pip](https://pip.pypa.io/en/stable/installing/)
-- [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html)
-- [django](https://docs.djangoproject.com/en/3.1/topics/install/)
 
+### Prerequisites
 
-Once you have installed the programs, you need to clone the repository and create a virtual environment. To do that, you need to run the following commands:
-```bash
-git clone
-cd UCA-Sport-Management-System
-virtualenv venv
-```
+- Python 3.x
+- Django 3.x
 
-Then, you need to activate the virtual environment and install the dependencies:
-```bash
+### Steps
 
-source venv/bin/activate
+1. Clone the repository:
 
-pip install -r requirements.txt
-```
+    ```bash
+    git clone https://github.com/your-username/sport-management-system.git
+    cd sport-management-system
+    ```
 
-Finally, you need to run the migrations and start the server:
-```bash
+2. Create a virtual environment:
 
-python manage.py migrate
+    ```bash
+    python -m venv venv
+    ```
 
-python manage.py runserver
-```
+3. Activate the virtual environment:
 
-## Usage
+    - On Windows:
 
-To use the system, you need to create a superuser:
-```bash
+        ```bash
+        venv\Scripts\activate
+        ```
 
-python manage.py createsuperuser
-```
+    - On Unix or MacOS:
 
-Then, you need to go to the admin page and create the objects that you need. To do that, you need to go to the following url:
-```
+        ```bash
+        source venv/bin/activate
+        ```
 
-http://localhost:8000/admin
-```
+4. Install dependencies:
 
-To use the system, you need to go to the following url:
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-http://localhost:8000
-```
+5. Apply database migrations:
+
+    ```bash
+    python manage.py migrate
+    ```
+
+6. Run the development server:
+
+    ```bash
+    python manage.py runserver
+    ```
+
+7. Open your browser and navigate to [http://localhost:8000](http://localhost:8000) to access the Sport Management System.
+
+## Screenshots
+
+Include screenshots here to showcase the user interface and features of your Sport Management System. 
+
+![Screenshot 1](screenshots/1.png)
+*Caption for Screenshot 1*
+
+![Screenshot 2](screenshots/screenshot2.png)
+*Caption for Screenshot 2*
+
+<!-- Add more screenshots as needed -->
+
+## Contributing
+
+If you'd like to contribute to the project, please follow the guidelines in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
-
-
-
-            
-    
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
