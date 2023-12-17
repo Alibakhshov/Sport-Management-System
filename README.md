@@ -42,7 +42,7 @@ The Sport Management System is a web application built with Django, designed to 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/sport-management-system.git
+    https://github.com/Alibakhshov/UCA-Sport-Management-System.git
     cd sport-management-system
     ```
 
