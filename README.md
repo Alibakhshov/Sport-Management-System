@@ -91,10 +91,19 @@ The Sport Management System is a web application built with Django, designed to 
 Include screenshots here to showcase the user interface and features of your Sport Management System. 
 
 ![Screenshot 1](screenshots/1.png)
-*Caption for Screenshot 1*
 
-![Screenshot 2](screenshots/screenshot2.png)
-*Caption for Screenshot 2*
+![Screenshot 2](screenshots/2.png)  
+
+![Screenshot 3](screenshots/3.png)
+
+![Screenshot 4](screenshots/4.png)
+
+![Screenshot 5](screenshots/5.png)
+
+![Screenshot 6](screenshots/6.png)
+
+![Screenshot 7](screenshots/7.png)
+
 
 <!-- Add more screenshots as needed -->
 
