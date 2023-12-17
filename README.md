@@ -36,6 +36,8 @@ The Sport Management System is a web application built with Django, designed to 
 
 - Python 3.x
 - Django 3.x
+- Django REST Framework 3.x
+- Pillow 8.x
 
 ### Steps
 
